@@ -38,6 +38,16 @@ module.exports = function(grunt) {
           'tmp/tests.js': ['test/fixtures/*.js'],
         },
       },
+      backbone: {
+        options: {
+          template: 'test/fixtures/qunit.tmpl',
+          source: 'test/fixtures/backbone.js',
+          makeObject: true
+        },
+        files: {
+          'tmp/backbone_tests.js': ['test/fixtures/underscore.js'],
+        },
+      },
     },
 
     // Unit tests.

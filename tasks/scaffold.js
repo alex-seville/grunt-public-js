@@ -26,10 +26,6 @@ module.exports = function(grunt) {
       grunt.log.warn('You must provide a template.');
       return false;
     }
-    if (!options.template){
-      grunt.log.warn('You must provide a template.');
-      return false;
-    }
 
     // Iterate over all specified file groups.
     this.files.forEach(function(f) {
@@ -49,7 +45,7 @@ module.exports = function(grunt) {
 
       var output;
 
-      if (src.length === 1){
+      if (src.length === 1 && !options.source ){
         output = publicjs.getPublic(src[0],{
           tree:true
         });
@@ -63,22 +59,44 @@ module.exports = function(grunt) {
             tree:true
           });
       }
-
+      
       var template = grunt.file.read(options.template);
       var unitTest = _.template(template);
 
       var testStr = "";
       var count=0;
-      output.forEach(function(item){
-        if (item.type == "function"){
+      var prefix = "";
+      var parseTree = function(item){
+        
+        if (item.type == "object" ){
+          if (options.makeObject && item.children.length === 0){
+            testStr += unitTest({
+              testname: prefix+item.name + " test",
+              result: prefix+item.name,
+              expected: "null"
+            }) + "\n";
+            count++;
+          }else{
+            prefix = prefix + item.name + ".";
+            item.children.forEach(parseTree);
+          }
+        }else if (item.type == "function"){
+          var params;
+          if (item.params){
+            params = item.params.map(function(i){
+              return i.name;
+            }).join(',');
+          }
+          
           testStr += unitTest({
-            testname: item.name + " test",
-            result: item.name + "()",
+            testname: prefix+item.name + " test",
+            result: prefix+item.name + "("+params+")",
             expected: "null"
           }) + "\n";
           count++;
         }
-      });
+      };
+      output.forEach(parseTree);
       grunt.file.write(f.dest,testStr);
       // Print a success message.
       grunt.log.writeln('Created ' + count + ' test scaffolds');
