@@ -1,6 +1,6 @@
 # grunt-scaffold
 
-> Automated unit test scaffolding using public.js
+> Automated unit test scaffolding using [public.js](https://github.com/alex-seville/public.js)
 
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
