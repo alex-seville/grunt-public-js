@@ -1,0 +1,15 @@
+<% _.each(data, function(fcn) { %>
+    <% if(fcn.type == 'object') { %>
+##<%= fcn.name %>
+
+        <% _.each(fcn.children, function(fcn2) { %>
+**<%= fcn2.name %>**  <%= fcn.name %>.<%= fcn2.name %><% if(fcn2.params){ %>(<% _.each(fcn2.params, function(fcn3) { %><%= fcn3.name %>, <% }); %>)<% } %>
+Blurb about this function.
+<% }); %>
+    <% }else{ %>
+**<%= fcn.name %>**  <%= fcn.name %><% if(fcn.params){ %>(<% _.each(fcn2.params, function(fcn3) { %><%= fcn3.name %>, <% }); %>)<% } %>
+
+Blurb about this function.
+
+    <% } %>
+<% }); %>

@@ -62,44 +62,10 @@ module.exports = function(grunt) {
       
       var template = grunt.file.read(options.template);
       var unitTest = _.template(template);
-
-      var testStr = "";
-      var count=0;
-      var prefix = "";
-      var parseTree = function(item){
-        
-        if (item.type == "object" ){
-          if (options.makeObject && item.children.length === 0){
-            testStr += unitTest({
-              testname: prefix+item.name + " test",
-              result: prefix+item.name,
-              expected: "null"
-            }) + "\n";
-            count++;
-          }else{
-            prefix = prefix + item.name + ".";
-            item.children.forEach(parseTree);
-          }
-        }else if (item.type == "function"){
-          var params;
-          if (item.params){
-            params = item.params.map(function(i){
-              return i.name;
-            }).join(',');
-          }
-          
-          testStr += unitTest({
-            testname: prefix+item.name + " test",
-            result: prefix+item.name + "("+params+")",
-            expected: "null"
-          }) + "\n";
-          count++;
-        }
-      };
-      output.forEach(parseTree);
+      var testStr = unitTest({data: output});
       grunt.file.write(f.dest,testStr);
       // Print a success message.
-      grunt.log.writeln('Created ' + count + ' test scaffolds');
+      grunt.log.writeln('Created test scaffolds');
     });
   });
 

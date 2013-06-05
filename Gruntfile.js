@@ -30,15 +30,28 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
     scaffold: {
+      
       default_options: {
         options: {
           template: 'test/fixtures/qunit.tmpl'
         },
         files: {
-          'tmp/tests.js': ['test/fixtures/*.js'],
+          'tmp/tests.js': ['test/fixtures/test_fcn.js'],
         },
       },
+
       backbone: {
+        options: {
+          template: 'test/fixtures/documentation.tmpl',
+          source: 'test/fixtures/backbone.js',
+          makeObject: true
+        },
+        files: {
+          'tmp/backbone_docs.js': ['test/fixtures/underscore.js'],
+        },
+      },
+
+      backboneTests: {
         options: {
           template: 'test/fixtures/qunit.tmpl',
           source: 'test/fixtures/backbone.js',

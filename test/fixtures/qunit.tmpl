@@ -1,3 +1,14 @@
-test( '<%= testname %>', function() { 
-    ok( <%= result %> !== <%= expected %>, 'Passed!' );
+<% _.each(data, function(fcn) { %>
+    <% if(fcn.type == 'object') { %>
+module('<%= fcn.name %>');
+        <% _.each(fcn.children, function(fcn2) { %>
+test('<%= fcn2.name %>',function(){
+            ok(<%= fcn.name %>.<%= fcn2.name %><% if(fcn2.params && fcn2.params.length > 0){ %>(<% _.each(fcn2.params, function(fcn3) { %><%= fcn3.name %>,<% }); %>)<% } %> == null,"passed");
 });
+        <% }); %>
+    <% }else{ %>
+test('<%= fcn.name %>',function(){
+            ok(<%= fcn.name %><% if(fcn.params && fcn.params.length > 0){ %>(<% _.each(fcn.params, function(fcn3) { %><%= fcn3.name %>,<% }); %>)<% } %> == null,"passed");
+});
+    <% } %>
+<% }); %>
