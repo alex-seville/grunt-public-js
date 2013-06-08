@@ -1,10 +1,6 @@
 # grunt-public-js
 
-<<<<<<< HEAD
 > Automated tasks for [public.js](https://github.com/alex-seville/public.js)
-=======
-> Automated unit test and documentation scaffolding using [public.js](https://github.com/alex-seville/public.js)
->>>>>>> 14acaf2f0ee7069698095aa1ae96c0d11eefa7ad
 
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
@@ -24,11 +20,11 @@ grunt.loadNpmTasks('grunt-public-js');
 ## The "public-js" task
 
 ### Overview
-In your project's Gruntfile, add a section named `scaffold` to the data object passed into `grunt.initConfig()`.
+In your project's Gruntfile, add a section named `public-js` to the data object passed into `grunt.initConfig()`.
 
 ```js
 grunt.initConfig({
-  scaffold: {
+  'public-js': {
     options: {
       // Task-specific options go here.
     },
@@ -41,10 +37,17 @@ grunt.initConfig({
 
 ### Options
 
+#### options.type
+Type: `String`
+
+A string with the value of `scaffold` or `lint` depending on the use.
+
 #### options.template
 Type: `String`
 
 A path to your template file representing the test runner code you want to target.
+
+
 
 
 ### Usage Examples
@@ -57,7 +60,8 @@ grunt.initConfig({
   scaffold: {
     options: {
       template: 'test/fixtures/qunit.tmpl',
-      source: 'test/fixtures/backbone.js'
+      source: 'test/fixtures/backbone.js',
+      type: 'scaffold'
     },
     files: {
       'dest/backbone_tests.js': [ 'test/fixtures/underscore.js'],
