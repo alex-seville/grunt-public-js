@@ -22,13 +22,28 @@ module.exports = function(grunt) {
       
     });
 
+    if (!options.type){
+      grunt.log.warn('You must provide a task type.');
+      return false;
+    }
+
+    if (options.type === 'scaffold'){
+      scaffolds.call(this,options,this.files);
+    }else if (options.type === 'lint'){
+      lint.call(this,options,this.files);
+    }
+
+    
+  });
+
+  function scaffolds(options,files){
     if (!options.template){
       grunt.log.warn('You must provide a template.');
       return false;
     }
 
     // Iterate over all specified file groups.
-    this.files.forEach(function(f) {
+    files.forEach(function(f) {
       // Concat specified files.
       var src = f.src.filter(function(filepath) {
         // Warn on and remove invalid source files (if nonull was set).
@@ -67,6 +82,47 @@ module.exports = function(grunt) {
       // Print a success message.
       grunt.log.writeln('Created test scaffolds');
     });
-  });
+  }
+
+  function lint(options,files){
+
+    // Iterate over all specified file groups.
+    files.forEach(function(f) {
+      // Concat specified files.
+      var src = f.src.filter(function(filepath) {
+        // Warn on and remove invalid source files (if nonull was set).
+        if (!grunt.file.exists(filepath)) {
+          grunt.log.warn('Source file "' + filepath + '" not found.');
+          return false;
+        } else {
+          return true;
+        }
+      }).map(function(filepath) {
+        // Read file source.
+        return grunt.file.read(filepath);
+      });
+
+      var output, dest = grunt.file.read(f.dest);
+      try{
+        if (src.length > 0 ){
+          output = publicjs.getPublic(dest,{
+            dependencies: src,
+            throwErrors: true,
+            tree:true
+          });
+        }else{
+          output = publicjs.getPublic(dest,{
+            throwErrors: true,
+            tree:true
+          });
+        }
+      }catch(e){
+        grunt.log.warn("Public-lint error: "+e);
+        return false;
+      }
+      grunt.log.writeln('Public-lint completed successfully.');
+      
+    });
+  }
 
 };

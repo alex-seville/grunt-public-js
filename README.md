@@ -1,6 +1,10 @@
 # grunt-public-js
 
+<<<<<<< HEAD
 > Automated tasks for [public.js](https://github.com/alex-seville/public.js)
+=======
+> Automated unit test and documentation scaffolding using [public.js](https://github.com/alex-seville/public.js)
+>>>>>>> 14acaf2f0ee7069698095aa1ae96c0d11eefa7ad
 
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
@@ -46,7 +50,7 @@ A path to your template file representing the test runner code you want to targe
 ### Usage Examples
 
 #### Default Options
-In this example, we want to load Backbone.js, with Underscore.js as a dependency, and then have qunit tests created, using a QUnit test template.
+In this example, we want to load Backbone.js, with Underscore.js as a dependency, and then have a qunit test scaffold created, using a QUnit test template.
 
 ```js
 grunt.initConfig({

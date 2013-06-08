@@ -50,6 +50,15 @@ module.exports = function(grunt) {
         },
       },
 
+      failing_lint: {
+        options: {
+          type: 'lint'
+        },
+        files: {
+          'test/fixtures/test_fcn_failing_lint.js': [],
+        },
+      },
+
       backbone_scaffold: {
         options: {
           template: 'test/fixtures/documentation.tmpl',
