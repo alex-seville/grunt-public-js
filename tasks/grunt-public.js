@@ -125,7 +125,7 @@ module.exports = function(grunt) {
     if (errors.length > 0){
         grunt.log.warn("Public-lint error"+(errors.length > 1 ? "s" : "") + ": ");
         errors.forEach(function(e){
-          grunt.log.warn("Error when accessing "+e.k+" of "+e.v+" in "+ e.f);
+          grunt.log.warn("Error when accessing "+e.v+"."+e.k+" in "+ e.f);
         })
         grunt.fatal("Public-lint failed.");
       }
