@@ -1,8 +1,8 @@
 {
-  "name": "grunt-scaffold",
-  "description": "Automated unit test scaffolding using public.js",
+  "name": "grunt-public-js",
+  "description": "Automated tasks for public.js",
   "version": "0.1.0",
-  "homepage": "https://github.com/alex-seville/scaffold.js",
+  "homepage": "https://github.com/alex-seville/grunt-public-js",
   "author": {
     "name": "alex-seville",
     "email": "hi@alexanderseville.com",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/alex-seville/scaffold.js.git"
+    "url": "https://github.com/alex-seville/grunt-public-js.git"
   },
   "bugs": {
-    "url": "https://github.com/alex-seville/scaffold.js/issues"
+    "url": "https://github.com/alex-seville/grunt-public-js/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/alex-seville/scaffold.js/blob/master/LICENSE-MIT"
+      "url": "https://github.com/alex-seville/grunt-public-js/blob/master/LICENSE-MIT"
     }
   ],
   "main": "Gruntfile.js",

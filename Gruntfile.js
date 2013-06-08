@@ -1,6 +1,6 @@
 /*
- * grunt-scaffold
- * https://github.com/alex-seville/scaffold.js
+ * grunt-public-js
+ * https://github.com/alex-seville/grunt-public-js
  *
  * Copyright (c) 2013 alex-seville
  * Licensed under the MIT license.
@@ -29,10 +29,11 @@ module.exports = function(grunt) {
     },
 
     // Configuration to be run (and then tested).
-    scaffold: {
+    'public-js': {
       
-      default_options: {
+      default_scaffold: {
         options: {
+          type: 'scaffold',
           template: 'test/fixtures/qunit.tmpl'
         },
         files: {
@@ -40,10 +41,20 @@ module.exports = function(grunt) {
         },
       },
 
-      backbone: {
+      default_lint: {
+        options: {
+          type: 'lint'
+        },
+        files: {
+          'test/fixtures/bacbone.js': [],
+        },
+      },
+
+      backbone_scaffold: {
         options: {
           template: 'test/fixtures/documentation.tmpl',
           source: 'test/fixtures/backbone.js',
+          type: 'scaffold',
           makeObject: true
         },
         files: {
@@ -55,6 +66,7 @@ module.exports = function(grunt) {
         options: {
           template: 'test/fixtures/qunit.tmpl',
           source: 'test/fixtures/backbone.js',
+          type: 'scaffold',
           makeObject: true
         },
         files: {
@@ -80,7 +92,7 @@ module.exports = function(grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'scaffold', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'public-js', 'nodeunit']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);
