@@ -85,7 +85,7 @@ module.exports = function(grunt) {
   }
 
   function lint(options,files){
-
+    var errors=[];
     // Iterate over all specified file groups.
     files.forEach(function(f) {
       // Concat specified files.
@@ -103,26 +103,33 @@ module.exports = function(grunt) {
       });
 
       var output, dest = grunt.file.read(f.dest);
-      try{
+
+      var errorCallback = function(name,details){
+        errors.push({ k: name, v: details, f:f.dest });
+      };
+
+      
         if (src.length > 0 ){
           output = publicjs.getPublic(dest,{
             dependencies: src,
-            throwErrors: true,
+            errorCallback: errorCallback,
             tree:true
           });
         }else{
           output = publicjs.getPublic(dest,{
-            throwErrors: true,
+            errorCallback: errorCallback,
             tree:true
           });
-        }
-      }catch(e){
-        grunt.log.warn("Public-lint error: "+e);
-        return false;
+        } 
+    });
+    if (errors.length > 0){
+        grunt.log.warn("Public-lint error"+(errors.length > 1 ? "s" : "") + ": ");
+        errors.forEach(function(e){
+          grunt.log.warn("Error when accessing "+e.k+" of "+e.v+" in "+ e.f);
+        })
+        grunt.fatal("Public-lint failed.");
       }
       grunt.log.writeln('Public-lint completed successfully.');
-      
-    });
   }
 
 };

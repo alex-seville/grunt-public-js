@@ -46,7 +46,7 @@ module.exports = function(grunt) {
           type: 'lint'
         },
         files: {
-          'test/fixtures/bacbone.js': [],
+          'test/fixtures/backbone.js': [],
         },
       },
 
