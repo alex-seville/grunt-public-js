@@ -151,10 +151,19 @@ module.exports = function(grunt) {
               return ret;
             };
             var paths = getLeaves(output);
+            var onlys = options.lintOptions.exportOnly.slice(0);
             options.lintOptions.exportOnly.forEach(function(eo){
-              if (paths.indexOf(eo) > -1){
-                
+              var found = onlys.indexOf(eo); 
+              if (found > -1){
+                paths.splice(found,1);
+                onlys.splice(onlys.indexOf(eo),1);
               }
+            });
+            paths.forEach(function(p){
+              errors.push("Didn't expect "+p+" to be exported in "+f.dest);
+            });
+            onlys.forEach(function(o){
+              errors.push("Expected "+o+ " to be exported but it was not found in "+f.dest);
             });
           }
         }
