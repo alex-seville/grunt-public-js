@@ -52,7 +52,10 @@ module.exports = function(grunt) {
 
       failing_lint: {
         options: {
-          type: 'lint'
+          type: 'lint',
+          lintOptions: {
+            exportOnly:[]
+          }
         },
         files: {
           'test/fixtures/test_fcn_failing_lint.js': [],
