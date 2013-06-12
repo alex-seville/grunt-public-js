@@ -1,0 +1,24 @@
+<h3>Documentation</h3>
+<% _.each(data, function(fcn) { %>
+    <% if(fcn.type == 'object') { %>
+<h3><%= fcn.name %></h3>
+
+        <% _.each(fcn.children, function(fcn2) { %>
+<h4>&nbsp;&nbsp;<%= fcn2.name %></h4>  <i>&nbsp;&nbsp;<%= fcn.name %>.<%= fcn2.name %><% if(fcn2.params){ %>(<% _.each(fcn2.params, function(fcn3) { %><%= fcn3.name %>, <% }); %>)<% } %></i>
+<p>&nbsp;&nbsp;Blurb about this function. You complete this yourself.</p>
+<% }); %>
+    <% }else{ %>
+<h4><%= fcn.name %></h4>  <i><%= fcn.name %><% if(fcn.params){ %>(<% _.each(fcn.params, function(fcn3) { %><%= fcn3.name %>, <% }); %>)<% } %></i>
+
+<p>Blurb about this function. You complete this yourself</p>
+<div style='margin-left:20px'><% _.each(fcn.children, function(fcn2) { %>
+<h5><%= fcn2.name %></h5>  <i><%= fcn.name %>.<%= fcn2.name %><% if(fcn2.params){ %>(<% _.each(fcn2.params, function(fcn3) { %><%= fcn3.name %>, <% }); %>)<% } %></i>
+<p>Blurb about this function. You complete this yourself.</p>
+<% }); %>
+<% _.each(fcn.prototype, function(fcn3) { %>
+<h5><%= fcn.name %>.<%= fcn3.name %></h5><i><%= fcn.name %>.<%= fcn3.name %><% if(fcn3.params && fcn3.params.length > 0){ %>(<% _.each(fcn3.params, function(fcn4) { %><%= fcn4.name %>,<% }); %>)<% } %> </i>
+<p>Blurb about this function. You complete this yourself.</p>
+                <% }); %>
+</div>
+    <% } %>
+<% }); %>
