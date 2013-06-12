@@ -121,22 +121,45 @@ module.exports = function(grunt) {
             tree:true
           });
         } 
+
+        //check exportOnly
+        if (options.lintOptions.exportOnly){
+          if (options.lintOptions.exportOnly.length === 0 && output.length !== 0){
+            errors.push("Expected nothing to be exported, but saw: "+output.map(function(o){ return o.name; }));
+          }else if (options.lintOptions.exportOnly.length > 0 && output.length === 0){
+            errors.push("Nothing was exported.");
+          }else{
+            //we have exports, and we expect exports
+            //we need to make sure that all expected were
+            //exported and that only expected were exported
+            //we should take all the leaf nodes and record their path value
+            //then compare that against the expected array.
+            //any results left, or any non matches should be recorded as an error.
+            var getLeaves = function(curr){
+              var ret=[];
+              curr.forEach(function(c){
+                if(c){
+                  ret.push(c.currentPath);
+                }
+                if (c.children){
+                  ret = ret.concat(getLeaves(c.children));
+                }
+                if (c.prototypes){
+                  ret = ret.concat(getLeaves(c.prototypes));
+                }
+              });
+              return ret;
+            };
+            var paths = getLeaves(output);
+            options.lintOptions.exportOnly.forEach(function(eo){
+              if (paths.indexOf(eo) > -1){
+                
+              }
+            });
+          }
+        }
     });
-    //check exportOnly
-    if (options.lintOptions.exportOnly){
-      if (options.lintOptions.exportOnly.length === 0 && output.length !== 0){
-        errors.push("Expected nothing to be exported, but saw: "+output.map(function(o){ return o.name; }));
-      }else if (options.lintOptions.exportOnly.length > 0 && output.length === 0){
-        errors.push("Nothing was exported.");
-      }else{
-        //we have exports, and we expect exports
-        //we need to make sure that all expected were
-        //exported and that only expected were exported
-        //we should take all the leaf nodes and record their path value
-        //then compare that against the expected array.
-        //any results left, or any non matches should be recorded as an error.
-      }
-    }
+
     
     //display result
     if (errors.length > 0){

@@ -54,7 +54,7 @@ module.exports = function(grunt) {
         options: {
           type: 'lint',
           lintOptions: {
-            exportOnly:[]
+            exportOnly:['pattern1']
           }
         },
         files: {
