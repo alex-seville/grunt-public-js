@@ -152,8 +152,9 @@ module.exports = function(grunt) {
             };
             var paths = getLeaves(output);
             var onlys = options.lintOptions.exportOnly.slice(0);
+            
             options.lintOptions.exportOnly.forEach(function(eo){
-              var found = onlys.indexOf(eo); 
+              var found = paths.indexOf(eo); 
               if (found > -1){
                 paths.splice(found,1);
                 onlys.splice(onlys.indexOf(eo),1);
