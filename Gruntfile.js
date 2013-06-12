@@ -61,7 +61,7 @@ module.exports = function(grunt) {
 
       backbone_scaffold: {
         options: {
-          template: 'templates/documentation.tmpl',
+          template: 'templates/documentation_html.tmpl',
           source: 'test/fixtures/backbone.js',
           type: 'scaffold',
           makeObject: true
