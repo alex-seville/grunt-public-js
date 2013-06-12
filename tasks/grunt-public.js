@@ -132,6 +132,9 @@ module.exports = function(grunt) {
         //we have exports, and we expect exports
         //we need to make sure that all expected were
         //exported and that only expected were exported
+        //we should take all the leaf nodes and record their path value
+        //then compare that against the expected array.
+        //any results left, or any non matches should be recorded as an error.
       }
     }
     
