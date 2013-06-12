@@ -34,7 +34,7 @@ module.exports = function(grunt) {
       default_scaffold: {
         options: {
           type: 'scaffold',
-          template: 'test/fixtures/qunit.tmpl'
+          template: 'templates/qunit.tmpl'
         },
         files: {
           'tmp/tests.js': ['test/fixtures/test_fcn.js'],
@@ -61,7 +61,7 @@ module.exports = function(grunt) {
 
       backbone_scaffold: {
         options: {
-          template: 'test/fixtures/documentation.tmpl',
+          template: 'templates/documentation.tmpl',
           source: 'test/fixtures/backbone.js',
           type: 'scaffold',
           makeObject: true
@@ -73,7 +73,7 @@ module.exports = function(grunt) {
 
       backboneTests: {
         options: {
-          template: 'test/fixtures/qunit.tmpl',
+          template: 'templates/qunit.tmpl',
           source: 'test/fixtures/backbone.js',
           type: 'scaffold',
           makeObject: true
