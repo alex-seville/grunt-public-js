@@ -19,7 +19,7 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('public-js', 'Your task description goes here.', function() {
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
-      
+      lintOptions: {}
     });
 
     if (!options.type){
@@ -105,7 +105,7 @@ module.exports = function(grunt) {
       var output, dest = grunt.file.read(f.dest);
 
       var errorCallback = function(name,details){
-        errors.push({ k: name, v: details, f:f.dest });
+        errors.push("Error when accessing "+details+"."+name+" in "+ f.dest);
       };
 
       
@@ -122,10 +122,20 @@ module.exports = function(grunt) {
           });
         } 
     });
+    //check exportOnly
+    if (options.lintOptions.exportOnly){
+      if (options.lintOptions.exportOnly.length === 0 && output.length !== 0){
+        errors.push("Expected nothing to be exported, but saw: "+output.map(function(o){ return o.name; }));
+      }else if (options.lintOptions.exportOnly.length > 0 && output.length === 0){
+        errors.push("Nothing was exported.");
+      }
+    }
+    
+    //display result
     if (errors.length > 0){
         grunt.log.warn("Public-lint error"+(errors.length > 1 ? "s" : "") + ": ");
         errors.forEach(function(e){
-          grunt.log.warn("Error when accessing "+e.v+"."+e.k+" in "+ e.f);
+          grunt.log.warn(e);
         })
         grunt.fatal("Public-lint failed.");
       }
