@@ -128,6 +128,10 @@ module.exports = function(grunt) {
         errors.push("Expected nothing to be exported, but saw: "+output.map(function(o){ return o.name; }));
       }else if (options.lintOptions.exportOnly.length > 0 && output.length === 0){
         errors.push("Nothing was exported.");
+      }else{
+        //we have exports, and we expect exports
+        //we need to make sure that all expected were
+        //exported and that only expected were exported
       }
     }
     
